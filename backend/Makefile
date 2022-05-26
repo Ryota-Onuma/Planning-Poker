@@ -32,9 +32,9 @@ console:
 
 .PHONY: apply
 apply:
-	make migrate
 	make metadata
-
+	make migrate
+	
 .PHONY: migrate
 migrate:
 	docker-compose up -d hasura
