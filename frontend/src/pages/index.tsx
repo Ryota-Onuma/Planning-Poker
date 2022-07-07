@@ -1,36 +1,41 @@
-import React, { useState, useEffect } from "react";
-import Axios from "../lib/axios";
+// import type { NextPage } from "next";
+// import { Home } from "@/components/home";
+// const HomePage: NextPage = () => {
+//   return <Home />;
+// };
 
-const IndexPage = () => {
-  const [tasks, setTasks] = useState([])
-    useEffect(() => {
-    const fetch = async () => {
-      const axios = new Axios
-      const response:any = await axios.get("/api/rest/tasks",{})
+// export default HomePage;
 
-      if (response && response.data) {
-        const newTasks = [...tasks,...response.data.tasks]
-        console.log(newTasks)
-        setTasks(newTasks)
-      }
-    }
-    fetch()
-    }, [])
-  
-    return (
-      <div>
-         <h1>Hello Next.js 👋</h1>
-         {/* {tasks} */}
-         {tasks.length > 0 && tasks.map(task => {
-           return(
-            <div key={task.id}>
-              <span>ID: {task.id}</span>&ensp; &ensp;
-              <span>Name: {task.name}</span>
-           </div>
-           )
-         })}
-      </div>
-    )
+import type { NextPage } from 'next'
+// import styles from '../styles/Home.module.css'
+import { gql,useQuery } from "@apollo/client";
+
+
+const Home: NextPage = () => {
+  const QUERY = gql`
+  query {
+    rooms {
+    id
+    name
   }
+  }
+`;
 
-export default IndexPage
+  const { data, loading, error } = useQuery(QUERY);
+  return (
+    <div>
+      <main>
+      <div>
+        {(loading) && <p>Loading...</p>}
+      </div>
+      <div>
+        {(error) && <p>Loading...</p>}
+      </div>
+
+      <pre>{JSON.stringify(data, null, 2)}</pre>;
+      </main>
+    </div>
+  )
+}
+
+export default Home

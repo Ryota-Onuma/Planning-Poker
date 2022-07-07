@@ -18,5 +18,13 @@ export default class Axios {
         const response = await this.client.get(url, { headers: headers, params: params})
         return response
     }
+    async post(url: string, body: any) {
+        const headers = {
+            "content-type": "application/json",
+            "x-hasura-admin-secret": ADMIN_SECRET
+        };
+        const response = await this.client.post(url, body,{ headers: headers})
+        return response
+    }
 }
 

@@ -1,54 +1,11 @@
 - name: allowed-queries
   definition:
     queries:
-    - name: FetchTasks
+    - name: rooms
       query: |-
-        query FetchTasks {
-          tasks {
+        query MyQuery {
+          rooms {
             id
             name
-            description
-            created_at
-            updated_at
-          }
-        }
-    - name: AddTask
-      query: |-
-        mutation AddTask($name: String!, $description: String!) {
-          addTask(object: {name: $name, description: $description}) {
-            id
-            name
-            description
-            created_at
-            updated_at
-          }
-        }
-    - name: FetchTask
-      query: |-
-        query FetchTask($taskId: Int!) {
-          task(id: $taskId) {
-            id
-            name
-            description
-            created_at
-            updated_at
-          }
-        }
-    - name: UpdateTask
-      query: |-
-        mutation UpdateTask($taskId: Int!, $name: String!, $description: String!) {
-          updateTask(pk_columns: {id: $taskId}, _set: {name: $name, description: $description}) {
-            id
-            name
-            description
-            created_at
-            updated_at
-          }
-        }
-    - name: DeleteTask
-      query: |-
-        mutation DeleteTask($taskId: Int!) {
-          deleteTask(id: $taskId) {
-            id
           }
         }
