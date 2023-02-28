@@ -1,0 +1,51 @@
+table:
+  schema: public
+  name: user_active_cards
+object_relationships:
+  - name: masterCardByMasterCard
+    using:
+      foreign_key_constraint_on: master_card
+  - name: room_user
+    using:
+      foreign_key_constraint_on: room_user_id
+insert_permissions:
+  - role: user
+    permission:
+      check:
+        room_user:
+          user_id:
+            _eq: X-Hasura-User-Id
+      columns:
+        - id
+        - room_user_id
+        - master_card
+        - is_selected
+        - created_at
+        - updated_at
+      backend_only: false
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - is_selected
+        - id
+        - master_card
+        - room_user_id
+        - created_at
+        - updated_at
+      filter: {}
+update_permissions:
+  - role: user
+    permission:
+      columns:
+        - is_selected
+        - id
+        - master_card
+        - room_user_id
+        - created_at
+        - updated_at
+      filter:
+        room_user:
+          user_id:
+            _eq: X-Hasura-User-Id
+      check: null

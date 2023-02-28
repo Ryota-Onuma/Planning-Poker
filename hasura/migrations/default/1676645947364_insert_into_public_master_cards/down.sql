@@ -1,0 +1,10 @@
+DELETE FROM "public"."master_cards" WHERE "value" = 'EIGHTY_NINE';
+DELETE FROM "public"."master_cards" WHERE "value" = 'FIFTY_FIVE';
+DELETE FROM "public"."master_cards" WHERE "value" = 'THIRTY_FOUR';
+DELETE FROM "public"."master_cards" WHERE "value" = 'TWENTY_ONE';
+DELETE FROM "public"."master_cards" WHERE "value" = 'THIRTEEN';
+DELETE FROM "public"."master_cards" WHERE "value" = 'EIGHT';
+DELETE FROM "public"."master_cards" WHERE "value" = 'FIVE';
+DELETE FROM "public"."master_cards" WHERE "value" = 'THREE';
+DELETE FROM "public"."master_cards" WHERE "value" = 'TWO';
+DELETE FROM "public"."master_cards" WHERE "value" = 'ONE';

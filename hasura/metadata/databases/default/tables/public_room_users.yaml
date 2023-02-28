@@ -1,0 +1,54 @@
+table:
+  schema: public
+  name: room_users
+object_relationships:
+  - name: room
+    using:
+      foreign_key_constraint_on: room_id
+  - name: user
+    using:
+      foreign_key_constraint_on: user_id
+array_relationships:
+  - name: user_active_cards
+    using:
+      foreign_key_constraint_on:
+        column: room_user_id
+        table:
+          schema: public
+          name: user_active_cards
+insert_permissions:
+  - role: user
+    permission:
+      check:
+        user_id:
+          _eq: X-Hasura-User-Id
+      columns:
+        - id
+        - user_id
+        - room_id
+        - created_at
+        - updated_at
+      backend_only: false
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - id
+        - user_id
+        - room_id
+        - created_at
+        - updated_at
+      filter: {}
+update_permissions:
+  - role: user
+    permission:
+      columns:
+        - id
+        - room_id
+        - user_id
+        - created_at
+        - updated_at
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      check: null

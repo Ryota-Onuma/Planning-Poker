@@ -1,0 +1,19 @@
+table:
+  schema: public
+  name: master_cards
+is_enum: true
+array_relationships:
+  - name: user_active_cards
+    using:
+      foreign_key_constraint_on:
+        column: master_card
+        table:
+          schema: public
+          name: user_active_cards
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - comment
+        - value
+      filter: {}

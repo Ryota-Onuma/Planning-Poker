@@ -1,0 +1,43 @@
+table:
+  schema: public
+  name: rooms
+array_relationships:
+  - name: room_users
+    using:
+      foreign_key_constraint_on:
+        column: room_id
+        table:
+          schema: public
+          name: room_users
+insert_permissions:
+  - role: user
+    permission:
+      check: {}
+      columns:
+        - is_cards_open
+        - id
+        - name
+        - created_at
+        - updated_at
+      backend_only: false
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - is_cards_open
+        - id
+        - name
+        - created_at
+        - updated_at
+      filter: {}
+update_permissions:
+  - role: user
+    permission:
+      columns:
+        - is_cards_open
+        - id
+        - name
+        - created_at
+        - updated_at
+      filter: {}
+      check: null

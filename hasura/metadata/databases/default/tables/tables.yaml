@@ -1,0 +1,5 @@
+- "!include public_master_cards.yaml"
+- "!include public_room_users.yaml"
+- "!include public_rooms.yaml"
+- "!include public_user_active_cards.yaml"
+- "!include public_users.yaml"
