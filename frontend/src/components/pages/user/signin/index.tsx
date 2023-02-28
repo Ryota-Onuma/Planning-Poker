@@ -13,12 +13,11 @@ const User = () => {
     if (typeof window !== "undefined") {
       const searchParams = new URLSearchParams(window.location.search);
       if (searchParams.has("redirect_url")) {
-        router.push(`/room/play/${searchParams.get("redirect_url")}`);
         return `${process.env.NEXT_PUBLIC_ORIGIN}/room/play/${searchParams.get(
           "redirect_url"
         )}`;
       } else {
-        router.push("/room/choose");
+        return `${process.env.NEXT_PUBLIC_ORIGIN}/room/choose`
       }
     }
   };
