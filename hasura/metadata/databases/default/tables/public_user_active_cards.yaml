@@ -44,8 +44,5 @@ update_permissions:
         - room_user_id
         - created_at
         - updated_at
-      filter:
-        room_user:
-          user_id:
-            _eq: X-Hasura-User-Id
+      filter: {}
       check: null

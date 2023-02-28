@@ -237,7 +237,7 @@ const IndividualRoom = ({ id, userID }: IndividualRoomProps) => {
           <CardInDeck
             number={card.masterCardByMasterCard.comment}
             isOpen={isCardsOpen}
-            userName={card?.room_user?.user?.name.slice( 0, 7)  ?? "名無しさん"}
+            userName={card?.room_user?.user?.name.slice( 0, 7) ?? "名無しさん"}
             isSelected={card.is_selected}
             key={card.id}
           />
