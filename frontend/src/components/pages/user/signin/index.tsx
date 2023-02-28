@@ -14,10 +14,14 @@ const User = () => {
   useEffect(() => {
     if (typeof window !== "undefined" && isReady && isAuthenticated) {
       const redirect_url = localStorage.getItem('redirect_url')
+      console.log(redirect_url)
       if(redirect_url) {
         localStorage.removeItem('redirect_url');
+        console.log("if")
         router.push(redirect_url)
       }else{
+        console.log("else")
+        console.log(redirect_url)
         router.push(`${process.env.NEXT_PUBLIC_ORIGIN}/room/choose`)
       }
     }
