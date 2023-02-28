@@ -7,7 +7,7 @@ import { UserStyle as Style } from "./style";
 import router from "next/router";
 
 const User = () => {
-  const { loginWithPopup, isAuthenticated, isLoading, error } = useAuth0();
+  const { loginWithRedirect, isAuthenticated, isLoading, error } = useAuth0();
 
   const generateRedirectPath = () => {
     if (typeof window !== "undefined") {
@@ -34,10 +34,8 @@ const User = () => {
         {!isAuthenticated && (
           <Button
             onClick={async () =>
-              await loginWithPopup({
-                authorizationParams: {
-                  redirect_uri: generateRedirectPath(),
-                },
+              await loginWithRedirect({
+                appState: { target:generateRedirectPath()},
               })
             }
           >
