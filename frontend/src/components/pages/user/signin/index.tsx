@@ -13,13 +13,11 @@ const User = () => {
   const isReady = router.isReady;
   useEffect(() => {
     if (typeof window !== "undefined" && isReady && isAuthenticated) {
-      const searchParams = new URLSearchParams(window.location.search);
-      if (searchParams.has("redirect_url")) {
-        router.push(`${process.env.NEXT_PUBLIC_ORIGIN}/room/play/${searchParams.get(
-          "redirect_url"
-        )}`)
-      } else {
-        console.log(window.location)
+      const redirect_url = localStorage.getItem('redirect_url')
+      if(redirect_url) {
+        localStorage.removeItem('redirect_url');
+        router.push(redirect_url)
+      }else{
         router.push(`${process.env.NEXT_PUBLIC_ORIGIN}/room/choose`)
       }
     }
@@ -29,9 +27,10 @@ const User = () => {
     if (typeof window !== "undefined") {
       const searchParams = new URLSearchParams(window.location.search);
       if (searchParams.has("redirect_url")) {
-       return `${process.env.NEXT_PUBLIC_ORIGIN}/user/signin?redirect_url=${searchParams.get(
-        "redirect_url"
-      )}`
+        localStorage.setItem('redirect_url', `${process.env.NEXT_PUBLIC_ORIGIN}/user/signin?redirect_url=${searchParams.get(
+          "redirect_url"
+        )}`);
+        return `${process.env.NEXT_PUBLIC_ORIGIN}/user/signin`
       } else {
         return `${process.env.NEXT_PUBLIC_ORIGIN}/room/choose`
       }
