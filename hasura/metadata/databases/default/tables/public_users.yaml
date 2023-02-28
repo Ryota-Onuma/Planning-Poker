@@ -26,9 +26,7 @@ select_permissions:
         - created_at
         - updated_at
         - last_seen
-      filter:
-        id:
-          _eq: X-Hasura-User-Id
+      filter: {}
 update_permissions:
   - role: user
     permission:
