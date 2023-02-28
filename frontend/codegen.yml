@@ -1,0 +1,22 @@
+overwrite: true
+schema: 'http://localhost:8888/v1/graphql'
+headers:
+  x-hasura-admin-secret: "secret"
+documents:
+  - 'src/**/*.tsx'
+hooks:
+  afterAllFileWrite:
+    - prettier --write
+generates:
+  ./src/generated/:
+    preset: gql-tag-operations-preset
+    presetConfig:
+      fragmentMasking: true
+    config:
+      namingConvention:
+        typeNames: change-case#pascalCase
+        enumValues: change-case#pascalCase
+        transformUnderscore: true
+      enumsAsConst: true
+      maybeValue: 'T | undefined'
+ 

@@ -25,11 +25,11 @@ const Header = () => {
   const isReady = router.isReady;
 
   const execLogout = () => {
-    logout()
+    logout();
     if (isReady) {
       router.push("/");
     }
-  }
+  };
   return (
     <AppBar position="static">
       <Toolbar sx={Style.header.toolBar}>
@@ -65,7 +65,7 @@ const Header = () => {
                 <Button
                   color="inherit"
                   onClick={() => {
-                    execLogout()
+                    execLogout();
                   }}
                 >
                   Logout

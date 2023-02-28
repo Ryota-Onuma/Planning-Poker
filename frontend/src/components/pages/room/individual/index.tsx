@@ -2,7 +2,7 @@ import { useQuery, useSubscription, useMutation } from "@apollo/client";
 import { IndividualRoomStyle as Style } from "./style";
 import { Box, Button, Typography } from "@mui/material";
 import { gql } from "@/generated/gql";
-import { Master_Cards_Enum } from "@/generated/graphql";
+import { MasterCardsEnum } from "@/generated/graphql";
 import Loading from "@/components/common/loading";
 import { CardAtHand, CardInDeck } from "./card";
 import { useEffect } from "react";
@@ -179,7 +179,7 @@ const IndividualRoom = ({ id, userID }: IndividualRoomProps) => {
   const execUpdateActiveCard = async (
     activeCardID: number,
     isSelected: boolean,
-    masterCard: Master_Cards_Enum
+    masterCard: MasterCardsEnum
   ) => {
     await updateActiveCard({
       variables: { id: activeCardID, isSelected, masterCard },
@@ -258,7 +258,7 @@ const IndividualRoom = ({ id, userID }: IndividualRoomProps) => {
                             card.value
                             ? !currentUserActiveCard.is_selected
                             : true,
-                          card.value as Master_Cards_Enum
+                          card.value as MasterCardsEnum
                         )
                 }
                 key={card.value}

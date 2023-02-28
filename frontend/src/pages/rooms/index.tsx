@@ -6,7 +6,7 @@ import { useMemo } from "react";
 const RoomsPage = () => {
   const router = useRouter();
   const isReady = router.isReady;
-  const { isAuthenticated, isLoading,user } = useAuth0();
+  const { isAuthenticated, isLoading, user } = useAuth0();
   if (!isLoading && !isAuthenticated && isReady) {
     router.push("/user/signin");
     return;

@@ -18,28 +18,28 @@ import { createClient } from "graphql-ws";
 let apolloClient: ApolloClient<NormalizedCacheObject> | undefined;
 
 export const useApollo = () => {
-    const role = "user"
-    const { getAccessTokenSilently } = useAuth0();
-   
-    const authLink = useAuthLink();
-    const httpLink = createHttpLink({
-        uri: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT
-    });
+  const role = "user";
+  const { getAccessTokenSilently } = useAuth0();
+
+  const authLink = useAuthLink();
+  const httpLink = createHttpLink({
+    uri: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT,
+  });
   const wsLink =
     typeof window !== "undefined"
       ? new GraphQLWsLink(
           createClient({
-            url: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT_WS,
+            url: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT_WS ?? "",
             webSocketImpl: WebSocket,
-              connectionParams: async () => {
-                const token =  await getAccessTokenSilently();
-                return ({
+            connectionParams: async () => {
+              const token = await getAccessTokenSilently();
+              return {
                 headers: {
-                    ...(token ? { Authorization: `Bearer ${token}` } : {}),
-                    "x-hasura-role": role,
-                }
-              })},
-      
+                  ...(token ? { Authorization: `Bearer ${token}` } : {}),
+                  "x-hasura-role": role,
+                },
+              };
+            },
           })
         )
       : httpLink;

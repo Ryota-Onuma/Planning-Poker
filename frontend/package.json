@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write src/**/*",
-    "compile": "pnpm run format && graphql-codegen",
+    "compile": "pnpm run format && graphql-codegen --config codegen.yml",
     "watch": "graphql-codegen -w"
   },
   "dependencies": {
@@ -28,6 +28,7 @@
     "@types/node": "18.13.0",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
+    "@types/ws": "^8.5.4",
     "axios": "^1.3.3",
     "bufferutil": "^4.0.7",
     "eslint": "8.34.0",
@@ -42,9 +43,11 @@
     "react-router-dom": "^6.8.1",
     "typescript": "4.9.5",
     "utf-8-validate": "^6.0.3",
+    "ws": "^8.12.1",
     "zod": "^3.20.6"
   },
   "devDependencies": {
+    "@graphql-codegen/gql-tag-operations-preset": "^2.1.0",
     "@iconify/icons-material-symbols": "^1.2.30",
     "@iconify/react": "^4.1.0",
     "prettier": "2.8.4"
