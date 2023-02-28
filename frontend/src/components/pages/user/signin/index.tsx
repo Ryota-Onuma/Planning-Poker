@@ -19,10 +19,12 @@ const User = () => {
         localStorage.removeItem('redirect_url');
         console.log("if")
         router.push(redirect_url)
+        return
       }else{
         console.log("else")
         console.log(redirect_url)
         router.push(`${process.env.NEXT_PUBLIC_ORIGIN}/room/choose`)
+        return
       }
     }
   },[isAuthenticated, isReady, router])
@@ -34,6 +36,8 @@ const User = () => {
         localStorage.setItem('redirect_url', `${process.env.NEXT_PUBLIC_ORIGIN}/user/signin?redirect_url=${searchParams.get(
           "redirect_url"
         )}`);
+        const redirect_url = localStorage.getItem('redirect_url')
+        console.log(redirect_url)
         return `${process.env.NEXT_PUBLIC_ORIGIN}/user/signin`
       } else {
         return `${process.env.NEXT_PUBLIC_ORIGIN}/room/choose`
