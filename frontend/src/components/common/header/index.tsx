@@ -2,6 +2,7 @@ import { HeaderStyle as Style } from "./style";
 import { Box, AppBar, Toolbar, Typography, Button } from "@mui/material";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/router";
 import { Icon } from "@iconify/react";
 import arrowDropDown from "@iconify/icons-material-symbols/arrow-drop-down";
 
@@ -20,7 +21,15 @@ const USER_QUERY = gql(/* GraphQL */ `
 const Header = () => {
   const { logout, isAuthenticated, user } = useAuth0();
   const [isClicked, setIsClicked] = useState(false);
+  const router = useRouter();
+  const isReady = router.isReady;
 
+  const execLogout = () => {
+    logout()
+    if (isReady) {
+      router.push("/");
+    }
+  }
   return (
     <AppBar position="static">
       <Toolbar sx={Style.header.toolBar}>
@@ -56,7 +65,7 @@ const Header = () => {
                 <Button
                   color="inherit"
                   onClick={() => {
-                    logout({ returnTo: process.env.NEXT_PUBLIC_ORIGIN });
+                    execLogout()
                   }}
                 >
                   Logout
