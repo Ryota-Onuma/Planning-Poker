@@ -40,7 +40,7 @@ const User = () => {
             onClick={async () =>
               await loginWithRedirect({
                 authorizationParams: {
-                  redirect_uri: `${process.env.NEXT_PUBLIC_ORIGIN}/room/choose`,
+                  redirect_uri: `${process.env.NEXT_PUBLIC_ORIGIN}/user/signin`,
                 },
               })
             }
