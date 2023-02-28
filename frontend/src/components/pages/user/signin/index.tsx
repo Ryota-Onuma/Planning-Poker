@@ -13,8 +13,6 @@ const User = () => {
   const isReady = router.isReady;
   useEffect(() => {
     if(isAuthenticated){
-
-    
     if (typeof window !== "undefined" && isReady) {
       const searchParams = new URLSearchParams(window.location.search);
       if (searchParams.has("redirect_url")) {
@@ -29,7 +27,7 @@ const User = () => {
   },[isAuthenticated, isReady, router])
 
   if (isLoading) return <Loading />;
-  if (error) return <p>Error</p>;
+  if (error) return <p>{error.message}</p>;
 
   return (
     <Box sx={Style.user.container}>
@@ -42,7 +40,7 @@ const User = () => {
             onClick={async () =>
               await loginWithRedirect({
                 authorizationParams: {
-                  redirect_uri: `${process.env.NEXT_PUBLIC_ORIGIN}/user/signin`,
+                  redirect_uri: `${process.env.NEXT_PUBLIC_ORIGIN}/room/choose`,
                 },
               })
             }
