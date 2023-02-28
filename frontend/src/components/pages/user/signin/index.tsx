@@ -30,7 +30,7 @@ const User = () => {
     if (typeof window !== "undefined") {
       const searchParams = new URLSearchParams(window.location.search);
       if (searchParams.has("redirect_url")) {
-       return `${process.env.NEXT_PUBLIC_ORIGIN}/user/signin?redirect_url=${searchParams.get(
+       return `${process.env.NEXT_PUBLIC_ORIGIN}/room/play/${searchParams.get(
         "redirect_url"
       )}`
       } else {
