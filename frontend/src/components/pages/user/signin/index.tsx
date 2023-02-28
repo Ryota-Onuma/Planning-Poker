@@ -34,8 +34,8 @@ const User = () => {
       <Paper>
         {!isAuthenticated && (
           <Button
-            onClick={() =>
-              loginWithRedirect({
+            onClick={async () =>
+              await loginWithRedirect({
                 authorizationParams: {
                   redirect_uri: generateRedirectPath(),
                 },
