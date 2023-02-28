@@ -6,7 +6,7 @@ const UserSigninPage = () => {
   const router = useRouter();
   const isReady = router.isReady;
   const { isAuthenticated, isLoading } = useAuth0();
-  if (!isLoading && isAuthenticated && isReady) {
+  if (!isLoading && !isAuthenticated && isReady) {
     router.push("/");
     return;
   }
