@@ -26,6 +26,19 @@ const User = () => {
   }
   },[isAuthenticated, isReady, router])
 
+  const generateRedirectPathForLoginWithRedirect = () => {
+    if (typeof window !== "undefined") {
+      const searchParams = new URLSearchParams(window.location.search);
+      if (searchParams.has("redirect_url")) {
+       return `${process.env.NEXT_PUBLIC_ORIGIN}/user/signin?redirect_url=${searchParams.get(
+        "redirect_url"
+      )}`
+      } else {
+        return `${process.env.NEXT_PUBLIC_ORIGIN}/room/choose`
+      }
+    }
+  }
+
   if (isLoading) return <Loading />;
   if (error) return <p>{error.message}</p>;
 
@@ -40,7 +53,7 @@ const User = () => {
             onClick={async () =>
               await loginWithRedirect({
                 authorizationParams: {
-                  redirect_uri: `${process.env.NEXT_PUBLIC_ORIGIN}/user/signin`,
+                  redirect_uri: generateRedirectPathForLoginWithRedirect()
                 },
               })
             }
