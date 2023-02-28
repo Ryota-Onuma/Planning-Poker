@@ -23,7 +23,6 @@ const Header = () => {
   const [isClicked, setIsClicked] = useState(false);
   const router = useRouter();
   const isReady = router.isReady;
-
   const execLogout = () => {
     logout();
     if (isReady) {

@@ -19,7 +19,7 @@ export default function App({ Component, pageProps }: AppProps) {
       useRefreshTokens={true}
       cacheLocation="localstorage"
       authorizationParams={{
-        redirect_uri: `${process.env.NEXT_PUBLIC_ORIGIN}/room/choose`,
+        redirect_uri: `${process.env.NEXT_PUBLIC_ORIGIN}/user/signin`,
         audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
       }}
     >

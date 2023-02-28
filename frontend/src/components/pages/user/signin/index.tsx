@@ -4,23 +4,29 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Box, Button, Typography, Paper } from "@mui/material";
 
 import { UserStyle as Style } from "./style";
-import router from "next/router";
+import router, { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const User = () => {
   const { loginWithRedirect, isAuthenticated, isLoading, error } = useAuth0();
+  const router = useRouter();
+  const isReady = router.isReady;
+  useEffect(() => {
+    if(isAuthenticated){
 
-  const generateRedirectPath = () => {
-    if (typeof window !== "undefined") {
+    
+    if (typeof window !== "undefined" && isReady) {
       const searchParams = new URLSearchParams(window.location.search);
       if (searchParams.has("redirect_url")) {
-        return `${process.env.NEXT_PUBLIC_ORIGIN}/room/play/${searchParams.get(
+        router.push(`${process.env.NEXT_PUBLIC_ORIGIN}/room/play/${searchParams.get(
           "redirect_url"
-        )}`;
+        )}`)
       } else {
-        return `${process.env.NEXT_PUBLIC_ORIGIN}/room/choose`
+        router.push(`${process.env.NEXT_PUBLIC_ORIGIN}/room/choose`)
       }
     }
-  };
+  }
+  },[isAuthenticated, isReady, router])
 
   if (isLoading) return <Loading />;
   if (error) return <p>Error</p>;
@@ -35,7 +41,9 @@ const User = () => {
           <Button
             onClick={async () =>
               await loginWithRedirect({
-                appState: { target:generateRedirectPath()},
+                authorizationParams: {
+                  redirect_uri: `${process.env.NEXT_PUBLIC_ORIGIN}/user/signin`,
+                },
               })
             }
           >
