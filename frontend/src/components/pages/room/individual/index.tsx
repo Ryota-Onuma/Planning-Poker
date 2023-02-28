@@ -221,7 +221,7 @@ const IndividualRoom = ({ id, userID }: IndividualRoomProps) => {
   const activeCards = activeCardsSubscriptionData?.user_active_cards || [];
 
   const currentUserActiveCard = activeCards.find(
-    (card) => card.room_user.user.id === userID
+    (card) => card?.room_user?.user?.id === userID
   );
 
   return (
@@ -233,7 +233,7 @@ const IndividualRoom = ({ id, userID }: IndividualRoomProps) => {
         {isCardsOpen ? "リセットする" : "カードをめくる"}
       </Button>
       <Box sx={Style.room.cards.deck.container}>
-        {activeCards.map((card) => (
+        {activeCards && activeCards.map((card) => (
           <CardInDeck
             number={card.masterCardByMasterCard.comment}
             isOpen={isCardsOpen}
