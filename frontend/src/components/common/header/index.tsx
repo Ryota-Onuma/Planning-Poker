@@ -34,7 +34,7 @@ const Header = () => {
       <Toolbar sx={Style.header.toolBar}>
         <Link href="/">
           <Typography component="span" sx={Style.header.toolBar.title}>
-            Planing Poker
+            Planning Poker
           </Typography>
         </Link>
         <Box>
