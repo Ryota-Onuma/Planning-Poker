@@ -1,3 +1,5 @@
+import { Height } from "@mui/icons-material";
+
 export const IndividualRoomStyle = {
   room: {
     container: {
@@ -9,6 +11,23 @@ export const IndividualRoomStyle = {
       alignItems: "center",
       padding: 10,
       gap: 7,
+    },
+    menu: {
+      container: {
+        width: "100%",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        position: "relative",
+      },
+      info: {
+        position: "absolute",
+        right: 0,
+        top: 5,
+        width: "300px",
+        maxHeight: "100px",
+        whiteSpace: "pre-wrap",
+      },
     },
     name: {
       fontSize: "36px",

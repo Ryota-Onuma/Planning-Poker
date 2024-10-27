@@ -196,6 +196,36 @@ const IndividualRoom = ({ id, userID }: IndividualRoomProps) => {
 
   if (loading || roomSubscriptionLoading || activeCardsSubscriptionLoading)
     return <Loading />;
+
+  let errMsg = "";
+  if (error) {
+    errMsg += error.message;
+  }
+
+  if (roomSubscriptionError) {
+    errMsg += roomSubscriptionError.message;
+  }
+
+  if (activeCardsSubscriptionError) {
+    errMsg += activeCardsSubscriptionError.message;
+  }
+
+  if (roomUpdateError) {
+    errMsg += roomUpdateError.message;
+  }
+
+  if (updateActiveCardError) {
+    errMsg += updateActiveCardError.message;
+  }
+
+  if (resetActiveCardError) {
+    errMsg += resetActiveCardError.message;
+  }
+
+  if (createRoomUserError) {
+    errMsg += createRoomUserError.message;
+  }
+
   if (
     error ||
     roomSubscriptionError ||
@@ -205,14 +235,7 @@ const IndividualRoom = ({ id, userID }: IndividualRoomProps) => {
     resetActiveCardError ||
     createRoomUserError
   ) {
-    console.log(error);
-    console.log(roomSubscriptionError);
-    console.log(activeCardsSubscriptionError);
-    console.log(roomUpdateError);
-    console.log(updateActiveCardError);
-    console.log(resetActiveCardError);
-    console.log(createRoomUserError);
-    return <p>ERROR</p>;
+    return <p>`ERROR: ${errMsg}`</p>;
   }
 
   const roomName = data?.rooms_by_pk?.name || "no room";
@@ -224,24 +247,51 @@ const IndividualRoom = ({ id, userID }: IndividualRoomProps) => {
     (card) => card?.room_user?.user?.id === userID
   );
 
+  const calcAvgOfActiveCards = () => {
+    let activeCardNumSum = 0;
+    let activeCardNums = 0;
+    let calculatedUserNames: string[] = [];
+    for (const card of activeCards) {
+      if (card.is_selected) {
+        const pt = parseInt(card.masterCardByMasterCard.comment, 10);
+        activeCardNumSum += pt;
+        activeCardNums++;
+        calculatedUserNames.push(pt + "pt");
+      }
+    }
+    return `ポイント平均: (${calculatedUserNames.join(
+      " + "
+    )}) / ${activeCardNums} = ${activeCardNumSum / activeCardNums}pt`;
+  };
+
   return (
     <Box sx={Style.room.container}>
       <Typography component="h1" sx={Style.room.name}>
         {roomName}
       </Typography>
-      <Button onClick={() => execUpdateRoom(!isCardsOpen)} variant="contained">
-        {isCardsOpen ? "リセットする" : "カードをめくる"}
-      </Button>
+      <Box sx={Style.room.menu.container}>
+        <Button
+          onClick={() => execUpdateRoom(!isCardsOpen)}
+          variant="contained"
+        >
+          {isCardsOpen ? "リセットする" : "カードをめくる"}
+        </Button>
+        <Box sx={Style.room.menu.info}>
+          {isCardsOpen && <>{calcAvgOfActiveCards()}</>}
+        </Box>
+      </Box>
+      <Box></Box>
       <Box sx={Style.room.cards.deck.container}>
-        {activeCards && activeCards.map((card) => (
-          <CardInDeck
-            number={card.masterCardByMasterCard.comment}
-            isOpen={isCardsOpen}
-            userName={card?.room_user?.user?.name.slice( 0, 7) ?? "名無しさん"}
-            isSelected={card.is_selected}
-            key={card.id}
-          />
-        ))}
+        {activeCards &&
+          activeCards.map((card) => (
+            <CardInDeck
+              number={card.masterCardByMasterCard.comment}
+              isOpen={isCardsOpen}
+              userName={card?.room_user?.user?.name.slice(0, 7) ?? "名無しさん"}
+              isSelected={card.is_selected}
+              key={card.id}
+            />
+          ))}
       </Box>
       <Box sx={Style.room.cards.container}>
         {currentUserActiveCard && (
