@@ -5,7 +5,7 @@ import { gql } from "@/generated/gql";
 import { MasterCardsEnum } from "@/generated/graphql";
 import Loading from "@/components/common/loading";
 import { CardAtHand, CardInDeck } from "./card";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 export type IndividualRoomProps = { id: string; userID: string };
 
@@ -264,6 +264,18 @@ const IndividualRoom = ({ id, userID }: IndividualRoomProps) => {
     )}) / ${activeCardNums} = ${activeCardNumSum / activeCardNums}pt`;
   };
 
+  const handleClickAvgCopyButton = () => {
+    const selectedCards = activeCards.filter((card) => card.is_selected);
+    const sum = selectedCards.reduce((acc, card) => {
+      return acc + parseInt(card.masterCardByMasterCard.comment, 10);
+    }, 0);
+
+    // 小数点第一位まで計算
+    const avg = Math.round((sum / selectedCards.length) * 10) / 10;
+
+    navigator.clipboard.writeText(avg.toString());
+  };
+
   return (
     <Box sx={Style.room.container}>
       <Typography component="h1" sx={Style.room.name}>
@@ -277,7 +289,14 @@ const IndividualRoom = ({ id, userID }: IndividualRoomProps) => {
           {isCardsOpen ? "リセットする" : "カードをめくる"}
         </Button>
         <Box sx={Style.room.menu.info}>
-          {isCardsOpen && <>{calcAvgOfActiveCards()}</>}
+          {isCardsOpen && (
+            <>
+              <Box>{calcAvgOfActiveCards()}</Box>
+              <Button variant="contained" onClick={handleClickAvgCopyButton}>
+                ポイント平均をコピー
+              </Button>
+            </>
+          )}
         </Box>
       </Box>
       <Box></Box>

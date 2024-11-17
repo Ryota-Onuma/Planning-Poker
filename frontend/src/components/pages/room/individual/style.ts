@@ -21,6 +21,9 @@ export const IndividualRoomStyle = {
         position: "relative",
       },
       info: {
+        display: "flex",
+        flexDirection: "column",
+        gap: 2,
         position: "absolute",
         right: 0,
         top: 5,
