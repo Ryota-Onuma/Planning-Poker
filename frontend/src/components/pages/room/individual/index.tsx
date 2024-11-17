@@ -264,7 +264,7 @@ const IndividualRoom = ({ id, userID }: IndividualRoomProps) => {
     )}) / ${activeCardNums} = ${activeCardNumSum / activeCardNums}pt`;
   };
 
-  const handleClickAvgCopyButton = useCallback(() => {
+  const handleClickAvgCopyButton = () => {
     const selectedCards = activeCards.filter((card) => card.is_selected);
     const sum = selectedCards.reduce((acc, card) => {
       return acc + parseInt(card.masterCardByMasterCard.comment, 10);
@@ -274,7 +274,7 @@ const IndividualRoom = ({ id, userID }: IndividualRoomProps) => {
     const avg = Math.round((sum / selectedCards.length) * 10) / 10;
 
     navigator.clipboard.writeText(avg.toString());
-  }, [activeCards]);
+  };
 
   return (
     <Box sx={Style.room.container}>
